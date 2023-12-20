@@ -5,10 +5,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="bootstrap.min.css">
-        <script src="bootstrap.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+        <script src="bootstrap.min.js"></script>
         <title>Sample</title>
         <style>
             body {
@@ -16,8 +15,19 @@
                 width: 100%;
                 height: 100vh;
             }
+
+            #recordsa_updation {
+                color: black;
+                font-weight: bold;
+                margin: 20px;
+                padding: 10px;
+                /* Added padding */
+                border-radius: 5px;
+                /* Added border-radius */
+
+
+            }
         </style>
-         
     </head>
 
     <body>
@@ -25,38 +35,122 @@
             style=" border: 2px solid black; border-radius: 10px; background-color: aquamarine; margin-top: 10px; font-style: italic; box-shadow: inset; font-weight: bold;">
 
             <h1 style="color: orangered; text-align: center; padding: 20px;">A website that adds Student to list and
-                assign Course
-                to student </h1>
+                assign Course to student </h1>
 
         </div>
 
         <br>
-        <br>
-        <div class="row" style="width: 300px;">
+
+        <div class="row" style="width: 300px; margin: 20px;">
             <label for="studentName" style="color:red; font-weight: bold;">Student Name:</label>
 
             <input type="text" id="studentName" placeholder="Enter student name">
-
-
 
             <label for="studentID" style="color: red; font-weight: bold;">Student ID:</label>
 
             <input type="text" id="studentID" placeholder="Enter student ID">
         </div>
+
+        <button onclick="addNewStd1()" id="btn" style="color: white; background-color: red; margin: 20px;">Add New
+            Student
+        </button>
         <br>
-        <button onclick="addNewStd()" id="btn" style="color: white; background-color: red;">Add New Student</button>
+        <div>
+            <p id="recordsa_updation"></p>
+        </div>
+
+        <script>
+            class Course {
+                constructor(name, id) {
+                    this.id = id;
+                    this.name = name;
+                }
+            }
+
+            class Student {
+                static stdList = []; // Keep track of all instances
+                courses = [];
+
+                constructor(name, id) {
+                    this.id = id;
+                    this.name = name;
+                    Student.stdList.push(this); // Add each instance to the list
+                }
+
+                addNewStd() {
 
 
+                    const newStudent = {
+                        studentName: studentName,
+                        studentID: studentID
+                    };
+
+                    this.stdList.push(newStudent);
+                    return Student.stdList; // Return the static list
+                }
+
+                deletStd(name, id) {
+                    const index = Student.stdList.findIndex(student => student.name === name && student.id === id);
+                    Student.stdList.splice(index, 1);
+                    return Student.stdList;
+                }
+
+                assignCourseToStudent(student, newCourse) {
+                    student.courses.push(newCourse);
+                    document.write(`<br><h1>${newCourse.name} has been assigned to ${student.name}</h1>`);
+                }
+
+                unAssignCourseFromStudent(courseName) {
+                    var index = this.courses.findIndex(course => course.name === courseName);
+                    this.courses.splice(index, 1);
+                    document.write(`<br><h1>${courseName} has been unassigned from ${this.name}</h1>`);
+                }
+            }
+
+            // Function to add new student
+            function addNewStd1() {
+                let studentNameInput = document.getElementById("studentName");
+                let studentIDInput = document.getElementById("studentID");
+                let studentName = studentNameInput.value;
+                let studentID = parseInt(studentIDInput.value);
+
+                // Check for the empty input fields
+                if (studentName.trim() === "" || isNaN(studentID)) {
+                    document.getElementById("recordsa_updation").innerHTML = "Please Enter Value";
+                    document.getElementById("recordsa_updation").style.background = "red";
+                } else {
+                    // Check if the student already exists
+                    let existingStudent = Student.stdList.find(student => student.name === studentName && student.id === studentID);
+
+                    if (existingStudent) {
+                        document.getElementById("recordsa_updation").innerHTML = "Student already exists!";
+                    } else {
+                        let newStudent = new Student(studentName, studentID);
+                        document.getElementById("recordsa_updation").innerHTML =
+                            "Record added: " + newStudent.name + " and " + newStudent.id + "<br>";
+
+                        // Clear input after adding
+                        studentNameInput.value = "";
+                        studentIDInput.value = "";
+
+                        // Display all available records
+                        displayAllRecords();
+                    }
+                }
+            }
 
 
+            // Function to display all available records
+            function displayAllRecords() {
+                let recordsText = "<h2>All Records:</h2>";
+                for (let student of Student.stdList) {
+                    recordsText += `Name: ${student.name}, ID: ${student.id}<br>`;
+                }
 
-
-        <script src="js/sample.js"></script>
-
-      
-      
+                document.getElementById("recordsa_updation").style.background = "orange";
+                document.getElementById("recordsa_updation").innerHTML = recordsText;
+            }
+        </script>
     </body>
-
-
 
 </html>
