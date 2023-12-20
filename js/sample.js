@@ -11,7 +11,7 @@ class Course {
     stdList = [];
     courses=[];
 
-
+     //Fucntion to add new student
     addNewStd(name, id) {
       const newStudent = {
         name: name,
@@ -21,7 +21,7 @@ class Course {
       this.stdList.push(newStudent);
       return this.stdList;
     }
-  
+    //Fucntion to delete student
     deletStd(name, id) {
      
     
@@ -35,23 +35,23 @@ class Course {
       return this.stdList;
     }
 
-
+    //Function to assign course to student
     assignCourseToStudent(student,newCourse)
     {
      
 
         student.courses.push(newCourse)
-        document.write(` <br> <h1> ${newCourse} has been assigned to ${student.name} </h1>`)
+        document.write(` <br> <h1> ${newCourse.name} has been assigned to ${student.name} </h1>`)
        
     }
-
+    //Function to unassign course to student
     unAssignCourseFromStudent(courseName)
     {
 
       var index=this.courses.findIndex(course=>course.name===courseName)
 
       this.courses.splice(index,1);
-      document.write(`<br> <h1>${courseName} has been unassigned from ${this.name}</h1>`);
+      document.write(`<br> <h1>${courseName.name} has been unassigned from ${this.name}</h1>`);
 
     }
   }
@@ -71,8 +71,9 @@ class Course {
   let deletedItems = std1.deletStd("Glen", 90);
   document.write("Records after deletion: " + deletedItems.map(student => student.name + " and " + student.id).join(","));
 
+  let course1=new Course("Urdu",1)
 
-  std1.assignCourseToStudent(std1,"Urdu")
+  std1.assignCourseToStudent(std1,course1)
 
-  std1.unAssignCourseFromStudent("Urdu")
+  std1.unAssignCourseFromStudent(course1)
   
