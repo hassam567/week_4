@@ -1,156 +1,303 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="bootstrap.min.css">
-        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="bootstrap.min.js"></script>
-        <title>Sample</title>
-        <style>
-            body {
-                background-color: #FBA1B7;
-                width: 100%;
-                height: 100vh;
-            }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <title>Sample</title>
+    <style>
+        body {
+            background-color: #FBA1B7;
+            width: 100%;
+            height: 100vh;
+        }
 
-            #recordsa_updation {
-                color: black;
-                font-weight: bold;
-                margin: 20px;
-                padding: 10px;
-                /* Added padding */
-                border-radius: 5px;
-                /* Added border-radius */
+        #recordsa_updation {
+            color: black;
+            font-weight: bold;
+            margin: 20px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
 
+<body>
+    <div class="container card"
+        style="border: 2px solid black; border-radius: 10px; background-color: aquamarine; margin-top: 10px; font-style: italic; box-shadow: inset; font-weight: bold;">
 
-            }
-        </style>
-    </head>
+        <h1 style="color: orangered; text-align: center; padding: 20px;">A website that adds Student to list and
+            assigns Course to students </h1>
 
-    <body>
-        <div class="container card"
-            style=" border: 2px solid black; border-radius: 10px; background-color: aquamarine; margin-top: 10px; font-style: italic; box-shadow: inset; font-weight: bold;">
+    </div>
 
-            <h1 style="color: orangered; text-align: center; padding: 20px;">A website that adds Student to list and
-                assign Course to student </h1>
+    <br>
 
-        </div>
+    <div class="row" style="width: 300px; margin: 20px;">
+        <label for="studentName" style="color:red; font-weight: bold;">Student Name:</label>
+        <input type="text" id="studentName" placeholder="Enter student name">
 
-        <br>
+        <label for="studentID" style="color: red; font-weight: bold;">Student ID:</label>
+        <input type="text" id="studentID" placeholder="Enter student ID">
+    </div>
 
-        <div class="row" style="width: 300px; margin: 20px;">
-            <label for="studentName" style="color:red; font-weight: bold;">Student Name:</label>
-
-            <input type="text" id="studentName" placeholder="Enter student name">
-
-            <label for="studentID" style="color: red; font-weight: bold;">Student ID:</label>
-
-            <input type="text" id="studentID" placeholder="Enter student ID">
-        </div>
-
+    <div>
         <button onclick="addNewStd1()" id="btn" style="color: white; background-color: red; margin: 20px;">Add New
             Student
         </button>
+
+        <button onclick="delLatestStd()" id="btn" style="color: white; background-color: red; margin: 20px;">Delete
+            Latest Student
+        </button>
+    </div>
+
+    <br>
+    <div>
+        <p id="recordsa_updation"></p>
+    </div>
+
+    <div class="d-flex flex-row" style="padding: 0px; margin: 0px;">
+        <h2 style="margin: 20px; font-style: italic; color: black; font-weight: bold;">Course That you want to
+            assign to
+            student</h2>
+        <label for="selectStudent1" style="margin: 20px; font-style: italic; color: red; font-weight: bold;">Select
+            a
+            student:</label>
+        <select id="selectStudent1" style="width: 80px; height: 50px;">
+            <!-- Populate this dropdown with existing students -->
+        </select>
+
+        <label for="mySelect" style="margin: 20px; font-style: italic; color: red; font-weight: bold;">Select a
+            course:</label>
+        <select id="mySelect" style="width: 80px; height: 50px;" onchange="updateObject('assign')">
+            <option value="Maths">Maths</option>
+            <option value="Urdu">Urdu</option>
+            <option value="English">English</option>
+            <option value="Science">Science</option>
+        </select>
         <br>
-        <div>
-            <p id="recordsa_updation"></p>
-        </div>
+    </div>
 
-        <script>
-            class Course {
-                constructor(name, id) {
-                    this.id = id;
-                    this.name = name;
-                }
+    <br>
+
+    <div>
+        <p id="Assigned_Course" style="margin-left: 20px; font-style: italic;color: red; font-weight: bold;"></p>
+    </div>
+
+    <br>
+    <br>
+    <div class="d-flex flex-row" style="padding: 0px; margin: 0px;">
+        <h2 style="margin: 20px; font-style: italic; color: black; font-weight: bold;">Course That you want to
+            reAssign
+            to student</h2>
+        <label for="selectStudent2" style="margin: 20px; font-style: italic; color: red; font-weight: bold;">Select
+            a
+            student:</label>
+        <select id="selectStudent2" style="width: 80px; height: 50px;">
+            <!-- Populate this dropdown with existing students -->
+        </select>
+
+        <label for="mySelect2" style="margin: 20px; font-style: italic; color: red; font-weight: bold;">Select a
+            course:</label>
+        <select id="mySelect2" style="width: 80px; height: 50px;" onchange="updateObject('reassign')">
+            <option value="Maths">Maths</option>
+            <option value="Urdu">Urdu</option>
+            <option value="English">English</option>
+            <option value="Science">Science</option>
+        </select>
+        <br>
+    </div>
+    <br>
+    <br>
+    <div>
+        <p id="unassign_record"  style="margin: 20px; font-style: italic; color: red; font-weight: bold;"></p>
+    </div>
+
+    <script>
+        let studentList = JSON.parse(localStorage.getItem("StudentList")) || [];
+
+        class Course {
+            courses = [];
+
+            constructor(name, id) {
+                this.id = id;
+                this.name = name;
+            }
+        }
+
+        class Student {
+            static stdList = [];
+
+            constructor(name, id) {
+                this.id = id;
+                this.name = name;
+                Student.stdList.push(this);
             }
 
-            class Student {
-                static stdList = []; // Keep track of all instances
-                courses = [];
+            static assignCourseToStudent(student, newCourse) {
+                student.courses.push(newCourse);
 
-                constructor(name, id) {
-                    this.id = id;
-                    this.name = name;
-                    Student.stdList.push(this); // Add each instance to the list
-                }
+                // Get the selected student's name from the dropdown
+                let selectedStudentName = document.getElementById("selectStudent1").options[document.getElementById("selectStudent1").selectedIndex].text;
 
-                addNewStd() {
+                let assignedCourseParagraph = document.createElement("p");
 
+                assignedCourseParagraph.innerHTML = `<br><h1>${newCourse.name} has been assigned to ${selectedStudentName}</h1>`;
+                assignedCourseParagraph.id = `assignedCourse_${student.id}`;
 
-                    const newStudent = {
-                        studentName: studentName,
-                        studentID: studentID
-                    };
+                document.getElementById("Assigned_Course").appendChild(assignedCourseParagraph);
 
-                    this.stdList.push(newStudent);
-                    return Student.stdList; // Return the static list
-                }
-
-                deletStd(name, id) {
-                    const index = Student.stdList.findIndex(student => student.name === name && student.id === id);
-                    Student.stdList.splice(index, 1);
-                    return Student.stdList;
-                }
-
-                assignCourseToStudent(student, newCourse) {
-                    student.courses.push(newCourse);
-                    document.write(`<br><h1>${newCourse.name} has been assigned to ${student.name}</h1>`);
-                }
-
-                unAssignCourseFromStudent(courseName) {
-                    var index = this.courses.findIndex(course => course.name === courseName);
-                    this.courses.splice(index, 1);
-                    document.write(`<br><h1>${courseName} has been unassigned from ${this.name}</h1>`);
-                }
+                displayAllRecords();
             }
 
-            // Function to add new student
-            function addNewStd1() {
-                let studentNameInput = document.getElementById("studentName");
-                let studentIDInput = document.getElementById("studentID");
-                let studentName = studentNameInput.value;
-                let studentID = parseInt(studentIDInput.value);
+            static unAssignCourseFromStudent(student, courseName, newCourseName) {
+                var index = student.courses.findIndex(course => course.name === courseName);
 
-                // Check for the empty input fields
-                if (studentName.trim() === "" || isNaN(studentID)) {
-                    document.getElementById("recordsa_updation").innerHTML = "Please Enter Value";
-                    document.getElementById("recordsa_updation").style.background = "red";
+                if (index !== -1) {
+                    // Course found, unassign it
+                    let unassignedCourse = student.courses.splice(index, 1)[0];
+
+                    // Display the unassignment message
+                    document.getElementById("unassign_record").innerHTML = `<br><h1>${unassignedCourse.name} has been unassigned from ${student.name}</h1>`;
+
+                  
                 } else {
-                    // Check if the student already exists
-                    let existingStudent = Student.stdList.find(student => student.name === studentName && student.id === studentID);
-
-                    if (existingStudent) {
-                        document.getElementById("recordsa_updation").innerHTML = "Student already exists!";
-                    } else {
-                        let newStudent = new Student(studentName, studentID);
-                        document.getElementById("recordsa_updation").innerHTML =
-                            "Record added: " + newStudent.name + " and " + newStudent.id + "<br>";
-
-                        // Clear input after adding
-                        studentNameInput.value = "";
-                        studentIDInput.value = "";
-
-                        // Display all available records
-                        displayAllRecords();
-                    }
+                    // Course not found, display a message
+                    document.getElementById("recordsa_updation").innerHTML = `<br><h1>${courseName} not found for ${student.name}</h1>`;
                 }
             }
+        }
 
+        function addNewStd1() {
+            let studentNameInput = document.getElementById("studentName");
+            let studentIDInput = document.getElementById("studentID");
+            let studentName = studentNameInput.value;
+            let studentID = parseInt(studentIDInput.value);
 
-            // Function to display all available records
-            function displayAllRecords() {
-                let recordsText = "<h2>All Records:</h2>";
-                for (let student of Student.stdList) {
+            if (studentName.trim() === "" || isNaN(studentID)) {
+                document.getElementById("recordsa_updation").innerHTML = "Please Enter Value";
+                document.getElementById("recordsa_updation").style.background = "red";
+            } else {
+                let existingStudent = studentList.find(student => student.name === studentName && student.id === studentID);
+
+                if (existingStudent) {
+                    document.getElementById("recordsa_updation").innerHTML = "Student already exists!";
+                } else {
+                    let newStudent = new Student(studentName, studentID);
+                    studentList.push(newStudent);
+
+                    localStorage.setItem("StudentList", JSON.stringify(studentList));
+
+                    document.getElementById("recordsa_updation").innerHTML =
+                        "Record added: " + newStudent.name + " and " + newStudent.id + "<br>";
+
+                    studentNameInput.value = "";
+                    studentIDInput.value = "";
+
+                    displayAllRecords();
+                    populateStudentDropdown(); // Update student dropdown
+                }
+            }
+        }
+
+        function delLatestStd() {
+            if (studentList.length === 0) {
+                document.getElementById("recordsa_updation").innerHTML = "No students to delete.";
+                return;
+            }
+
+            let latestStudent = studentList.pop();
+
+            localStorage.setItem("StudentList", JSON.stringify(studentList));
+
+            document.getElementById("recordsa_updation").innerHTML =
+                "Latest added student deleted: " + latestStudent.name + " and " + latestStudent.id + "<br>";
+
+            displayAllRecords();
+            populateStudentDropdown(); // Update student dropdown
+        }
+
+        function displayAllRecords() {
+            let recordsText = "";
+
+            if (studentList.length > 0) {
+                recordsText += "<h2>All Records:</h2>";
+                for (let student of studentList) {
                     recordsText += `Name: ${student.name}, ID: ${student.id}<br>`;
                 }
-
                 document.getElementById("recordsa_updation").style.background = "orange";
-                document.getElementById("recordsa_updation").innerHTML = recordsText;
+            } else {
+                document.getElementById("recordsa_updation").style.background = "none";
             }
-        </script>
-    </body>
+
+            document.getElementById("recordsa_updation").innerHTML = recordsText;
+        }
+
+        function populateStudentDropdown() {
+            let selectStudentDropdown1 = document.getElementById("selectStudent1");
+            let selectStudentDropdown2 = document.getElementById("selectStudent2");
+
+            // Clear existing options
+            selectStudentDropdown1.innerHTML = "";
+            selectStudentDropdown2.innerHTML = "";
+
+            for (let student of studentList) {
+                // Create options for both dropdowns
+                let option1 = document.createElement("option");
+                let option2 = document.createElement("option");
+
+                option1.value = student.id;
+                option1.textContent = student.name;
+
+                option2.value = student.id;
+                option2.textContent = student.name;
+
+                // Append options to the corresponding dropdowns
+                selectStudentDropdown1.appendChild(option1);
+                selectStudentDropdown2.appendChild(option2);
+            }
+        }
+
+        function updateObject(action) {
+            var selectedStudentId1 = document.getElementById("selectStudent1").value;
+            var selectedStudentId2 = document.getElementById("selectStudent2").value;
+
+            var selectedCourse1 = document.getElementById("mySelect").value;
+            var selectedCourse2 = document.getElementById("mySelect2").value;
+
+            // Find the selected students from the list
+            let selectedStudent1 = studentList.find(student => student.id === parseInt(selectedStudentId1));
+            let selectedStudent2 = studentList.find(student => student.id === parseInt(selectedStudentId2));
+
+            // Check if students are selected
+            if (selectedStudent1 && selectedStudent2) {
+                // Create new course instances
+                let course1 = new Course(selectedCourse1, 1);
+                let course2 = new Course(selectedCourse2, 2);
+
+                // Assign or reassign courses to the selected students based on the action
+                if (action === 'assign') {
+                    Student.assignCourseToStudent(selectedStudent1, course1);
+                } else if (action === 'reassign') {
+                    Student.unAssignCourseFromStudent(selectedStudent2, selectedCourse2, selectedCourse1);
+                }
+
+                // Save the updated studentList to local storage
+                localStorage.setItem("StudentList", JSON.stringify(studentList));
+            } else {
+                document.getElementById("recordsa_updation").innerHTML = "Please select students.";
+            }
+        }
+
+        // Display records when the page loads
+        displayAllRecords();
+        populateStudentDropdown();
+
+    </script>
+</body>
 
 </html>
